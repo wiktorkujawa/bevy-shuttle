@@ -3,8 +3,22 @@ use bevy::diagnostic::LogDiagnosticsPlugin;
 use bevy::prelude::*;
 use bevy::window::{MonitorSelection, WindowPosition};
 
+
+// Resource for fonts:
+#[derive(Default, Clone, Resource)]
+pub struct ResFont {
+    pub ui: Handle<Font>,
+}
+
+// Load resource during startup:
+pub fn startup(asset_server: Res<AssetServer>, mut res_font: ResMut<ResFont>)
+{
+    res_font.ui = asset_server.load("https://bevy-game.shuttleapp.rs/Roboto-Black.ttf");
+}
+
 fn main() {
     App::new()
+        .insert_resource(ResFont::default())
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
@@ -18,7 +32,7 @@ fn main() {
             LogDiagnosticsPlugin::default(),
             FrameTimeDiagnosticsPlugin,
         ))
-        .add_systems(Startup, setup)
+        .add_systems(Startup, (setup,startup))
         .add_systems(Update, main_menu)
         .run();
 }
@@ -27,8 +41,11 @@ fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-fn main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let font = asset_server.load("https://bevy-game.shuttleapp.rs/Roboto-Black.ttf");
+fn main_menu(mut commands: Commands, 
+    // asset_server: Res<AssetServer>, 
+    assets: Res<ResFont>) {
+    // let font = asset_server.load("https://bevy-game.shuttleapp.rs/Roboto-Black.ttf");
+    let font = assets.ui.clone();
 
     let title_font = title_text_style(60.0, font.clone());
 
