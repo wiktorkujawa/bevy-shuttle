@@ -1,2 +1,2 @@
-assets = ["dist/bevy-assets/*"]
+assets = ["dist/*"]
 name = "bevy-game"
