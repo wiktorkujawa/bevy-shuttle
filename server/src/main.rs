@@ -4,7 +4,6 @@ use tower_http::cors::CorsLayer;
 
 #[shuttle_runtime::main]
 async fn main() -> shuttle_axum::ShuttleAxum {
-    // let layer = CorsLayer::new().allow_headers(Any);
     let layer = CorsLayer::permissive();
     let router = Router::new().nest_service(
         "/",
