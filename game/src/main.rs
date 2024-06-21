@@ -13,7 +13,7 @@ pub struct ResFont {
 // Load resource during startup:
 pub fn startup(asset_server: Res<AssetServer>, mut res_font: ResMut<ResFont>)
 {
-    res_font.ui = asset_server.load("/Roboto-Black.ttf");
+    res_font.ui = asset_server.load("/bevy-assets/Roboto-Black.ttf");
 }
 
 fn main() {
