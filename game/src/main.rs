@@ -13,7 +13,7 @@ pub struct ResFont {
 // Load resource during startup:
 pub fn startup(asset_server: Res<AssetServer>, mut res_font: ResMut<ResFont>)
 {
-    res_font.ui = asset_server.load("https://bevy-game.shuttleapp.rs/Roboto-Black.ttf");
+    res_font.ui = asset_server.load("bevy-assets/Roboto-Black.ttf");
 }
 
 fn main() {
@@ -41,10 +41,7 @@ fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-fn main_menu(mut commands: Commands, 
-    // asset_server: Res<AssetServer>, 
-    assets: Res<ResFont>) {
-    // let font = asset_server.load("https://bevy-game.shuttleapp.rs/Roboto-Black.ttf");
+fn main_menu(mut commands: Commands, assets: Res<ResFont>) {
     let font = assets.ui.clone();
 
     let title_font = title_text_style(60.0, font.clone());
